@@ -8,6 +8,7 @@ map('n', '<A-d>', '<CMD>bdelete!<cr>', opts)
 map('n', 'gp', '<CMD>bprevious<cr>', opts)
 map('n', 'gn', '<CMD>bnext<cr>', opts)
 -- map('n', 'c-n', ':Alpha', opts)
+map('n', '<c-p>', '<c-e>', opts);
 
 map('n', '<c-f>', '<CMD>lua vim.lsp.buf.format()<cr>', opts)
 map('n', '<c-a>', '<CMD>lua vim.lsp.buf.code_action()<cr>', opts)
@@ -29,3 +30,6 @@ map('n', '<s-o>', '<cmd>lua vim.diagnostic.open_float()<CR>', opts);
 
 -- mappings search and replace
 -- map('n', <g-u>, )
+
+-- map('s', '<tab>', '<CMD>lua require("luasnip").jump(1)<CR>', opts)
+-- map('s', '<S-tab>', '<CMD>lua require("luasnip").jump(-1)<CR>', opts)

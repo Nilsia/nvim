@@ -62,6 +62,8 @@ lsp.cssls.setup(config())
 lsp.typst_lsp.setup(config())
 
 -- JAVASCRIPT
---lsp.tsserver.setup(config())
+lsp.tsserver.setup(config({
+    single_file_support = true
+}))
 --
 -- lsp.comment.setup(config())

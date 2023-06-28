@@ -37,7 +37,6 @@ return require('packer').startup(function(use)
             { 'hrsh7th/cmp-path' },
             -- snippets
             { 'L3MON4D3/LuaSnip' },
-            { 'saadparwaiz1/cmp_luasnip' },
             -- utils
             { 'onsails/lspkind-nvim' },
         },
@@ -58,7 +57,9 @@ return require('packer').startup(function(use)
     use { 'samjwill/nvim-unception' } --terminal unception
 
     use {'kaarmu/typst.vim', ft = {'typst'}} -- for typst
-    use {'rafamadriz/friendly-snippets'} -- snippets 
+
+    use { 'saadparwaiz1/cmp_luasnip' }
+    use {'rafamadriz/friendly-snippets'} -- snippets
 
     -- use { 'terrortylor/nvim-comment' }
 

@@ -1,28 +1,57 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
+local luasnip = require("luasnip");
 
 require("luasnip.loaders.from_vscode").lazy_load()
+
+local check_backspace = function()
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s')
+end
 
 cmp.setup({
     snippet = {
         expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
         end
     },
     mapping = {
         ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
+        ['<C-x>'] = cmp.mapping{
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close()
+        },
         ['<Tab>'] = cmp.mapping(function(fallback)
-            local col = vim.fn.col('.') - 1
 
             if cmp.visible() then
-                cmp.select_next_item(select_opts)
-            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+                cmp.select_next_item()
+            elseif luasnip.expandable() then 
+                luasnip.expand()
+            elseif luasnip.expand_or_jumpable() then 
+                luasnip.expand_or_jump()
+            elseif luasnip.check_backspace() then
                 fallback()
             else
-                cmp.complete()
+                fallback()
+            -- if cmp.visible() then
+            --     cmp.select_next_item(select_opts)
+            --     fallback()
+            -- else
+            --     cmp.complete()
             end
         end, { 'i', 's' }),
+
+        ['<S-Tab>'] = cmp.mapping(function (fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, {"i", "s"}),
+
         ['<CR>'] = cmp.mapping(function(fallback)
             if cmp.visible() and cmp.get_selected_entry() ~= nil then
                 cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
