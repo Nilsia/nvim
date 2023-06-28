@@ -61,6 +61,9 @@ lsp.cssls.setup(config())
 -- TYPST 
 lsp.typst_lsp.setup(config())
 
+-- DART 
+lsp.dartls.setup(config())
+
 -- JAVASCRIPT
 lsp.tsserver.setup(config({
     single_file_support = true
