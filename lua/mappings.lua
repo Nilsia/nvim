@@ -31,5 +31,3 @@ map('n', '<s-o>', '<cmd>lua vim.diagnostic.open_float()<CR>', opts);
 -- mappings search and replace
 -- map('n', <g-u>, )
 
--- map('s', '<tab>', '<CMD>lua require("luasnip").jump(1)<CR>', opts)
--- map('s', '<S-tab>', '<CMD>lua require("luasnip").jump(-1)<CR>', opts)

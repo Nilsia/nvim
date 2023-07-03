@@ -30,7 +30,7 @@ cmp.setup({
                 luasnip.expand()
             elseif luasnip.expand_or_jumpable() then 
                 luasnip.expand_or_jump()
-            elseif luasnip.check_backspace() then
+            elseif check_backspace() then
                 fallback()
             else
                 fallback()

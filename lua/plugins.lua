@@ -82,6 +82,14 @@ return require('packer').startup(function(use)
 
     use { 's1n7ax/nvim-search-and-replace' } -- search and replace plugin
 
+    use {
+        'akinsho/flutter-tools.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'stevearc/dressing.nvim', -- optional for vim.ui.select
+        },
+    }
+
     if packer_bootstrap then
         require('packer').sync()
     end

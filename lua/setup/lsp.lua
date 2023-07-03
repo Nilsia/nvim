@@ -46,7 +46,16 @@ lsp.rust_analyzer.setup(config({
 -- bash
 lsp.bashls.setup(config())
 lsp.efm.setup(config({
-    filetypes = { 'sh' }
+    filetypes = { 'sh' },
+    init_options = {documentFormatting = true},
+    settings = {
+        rootMarkers = {".git/"},
+        languages = {
+            lua = {
+                {formatCommand = "lua-format -i", formatStdin = true}
+            }
+        }
+    }
 }))
 
 -- PHP               
