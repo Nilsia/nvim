@@ -26,7 +26,12 @@ map('n', '<c-b>', '<CMD>lua require("telescope.builtin").buffers()<cr>', opts)
 map('n', '<c-t>', '<CMD>lua require("FTerm").toggle()<cr>', opts)
 map('t', '<esc>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<cr>', opts)
 
-map('n', '<s-o>', '<cmd>lua vim.diagnostic.open_float()<CR>', opts);
+map('n', '<A-p>', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+
+map('n', '<s-o>', 'o<esc>', opts);
+
+map('n', '<A-a>', '$li;<esc>', opts)
+map('i', '<A-a>', '<esc>$li;<esc>', opts)
 
 -- mappings search and replace
 -- map('n', <g-u>, )
