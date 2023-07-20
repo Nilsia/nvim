@@ -61,6 +61,12 @@ return require('packer').startup(function(use)
     use { 'saadparwaiz1/cmp_luasnip' }
     use {'rafamadriz/friendly-snippets'} -- snippets
 
+    -- surrount text with custom text
+    use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    })
+
     -- use { 'terrortylor/nvim-comment' }
 
     -- use {"numToStr/Comment.nvim"} -- Easily comment stuff
@@ -88,6 +94,16 @@ return require('packer').startup(function(use)
             'nvim-lua/plenary.nvim',
             'stevearc/dressing.nvim', -- optional for vim.ui.select
         },
+    }
+
+     use {
+        "danymat/neogen",
+        config = function()
+            require('neogen').setup ({ snippet_engine = "luasnip" })
+        end,
+        requires = "nvim-treesitter/nvim-treesitter",
+        -- Uncomment next line if you want to follow only stable versions
+        -- tag = "*"
     }
 
     if packer_bootstrap then

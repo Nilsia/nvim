@@ -1,6 +1,7 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
-local luasnip = require("luasnip");
+local luasnip = require("luasnip")
+local neogen = require("neogen")
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -30,6 +31,8 @@ cmp.setup({
                 luasnip.expand()
             elseif luasnip.expand_or_jumpable() then 
                 luasnip.expand_or_jump()
+            elseif neogen.jumpable() then
+                neogen.jump_next()
             elseif check_backspace() then
                 fallback()
             else
@@ -47,6 +50,8 @@ cmp.setup({
                 cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
                 luasnip.jump(-1)
+            elseif neogen.jumpable(true) then
+                neogen.jump_prev()
             else
                 fallback()
             end
@@ -89,8 +94,8 @@ cmp.setup({
     },
     sorting = { priority_weight = 2 },
     window = {
+        -- documentation = cmp.config.window.bordered { winhighlight = 'FloatBorder:TelescopeBorder,CursorLine:Visual,Search:None' },
         completion = cmp.config.window.bordered { winhighlight = 'FloatBorder:TelescopeBorder,CursorLine:Visual,Search:None' },
-        documentation = cmp.config.window.bordered { winhighlight = 'FloatBorder:TelescopeBorder,CursorLine:Visual,Search:None' }
     },
     formatting = {
         format = function(entry, vim_item)

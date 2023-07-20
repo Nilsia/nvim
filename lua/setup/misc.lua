@@ -50,11 +50,11 @@ require('illuminate').configure {
     }
 }
 
+require("nvim-surround").setup()
+
 require('indent_blankline').setup {
     space_char_blankline = " ",
 }
-
-require('nvim-autopairs').setup()
 
 require('cmp').event:on(
     'confirm_done',

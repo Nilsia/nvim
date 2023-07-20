@@ -28,10 +28,14 @@ map('t', '<esc>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<cr>', opts)
 
 map('n', '<A-p>', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
 
-map('n', '<s-o>', 'o<esc>', opts);
+map('n', '<s-o>', 'o<esc>', opts)
+map('n', 'go', 'i<CR><ESC>', opts)
 
 map('n', '<A-a>', '$li;<esc>', opts)
 map('i', '<A-a>', '<esc>$li;<esc>', opts)
+
+map('n', '<A-h>', '<CMD>lua require("neogen").generate()<CR>', opts)
+
 
 -- mappings search and replace
 -- map('n', <g-u>, )
