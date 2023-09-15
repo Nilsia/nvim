@@ -2,6 +2,8 @@ local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 map('n', '<c-s>', '<CMD>write<cr>', opts)
+map('i', '<c-s>', '<ESC><CMD>write<cr>', opts)
+
 map('n', '<c-q>', '<CMD>quit<cr>', opts)
 map('n', '<s-u>', '<CMD>redo<cr>', opts)
 map('n', '<A-d>', '<CMD>bdelete!<cr>', opts)

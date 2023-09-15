@@ -77,5 +77,8 @@ lsp.dartls.setup(config())
 lsp.tsserver.setup(config({
     single_file_support = true
 }))
+
+-- JSON
+lsp.jsonls.setup(config())
 --
 -- lsp.comment.setup(config())
