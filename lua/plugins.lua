@@ -1,34 +1,36 @@
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-        vim.cmd [[packadd packer.nvim]]
-        return true
-    end
-    return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
 
-return require('packer').startup(function(use)
-    use { 'wbthomason/packer.nvim' }
+return require('lazy').setup({
+    --  { 'wbthomason/packer.nvim' },
 
     -- [[ Theme ]]
-    use { 'folke/tokyonight.nvim', config = function()
+     { 'folke/tokyonight.nvim', config = function()
         vim.cmd [[ colorscheme tokyonight-night ]]
-    end, } --colorscheme
-    use { 'kyazdani42/nvim-web-devicons' } --icons
-    use { 'goolord/alpha-nvim' }
+    end, }, --colorscheme
+     { 'kyazdani42/nvim-web-devicons' }, --icons
+     { 'goolord/alpha-nvim' },
 
     -- [[ Dev ]]
-    use { 'neovim/nvim-lspconfig' } --lsp
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdateSync' } --treesitter
+     { 'neovim/nvim-lspconfig' }, --lsp
+     { 'nvim-treesitter/nvim-treesitter'  }, --treesitter
+     -- run = ':TSUpdateSync'
 
     -- [[ Cmp ]]
-    use({
+    {
         'hrsh7th/nvim-cmp',
-        requires = {
+        dependencies = {
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-nvim-lsp-signature-help' },
             { 'hrsh7th/cmp-nvim-lua' },
@@ -36,77 +38,79 @@ return require('packer').startup(function(use)
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-path' },
             -- snippets
-            { 'L3MON4D3/LuaSnip' },
+            { 'L3MON4D3/LuaSnip',
+        version = "2.*"},
             -- utils
             { 'onsails/lspkind-nvim' },
         },
-    })
+    },
 
     -- [[ Misc ]]
-    use { --fuzzy-finder
+     { --fuzzy-finder
         'nvim-telescope/telescope.nvim',
-        requires = { 'nvim-lua/plenary.nvim' }
-    }
+        dependencies = { 'nvim-lua/plenary.nvim' },
+    },
 
-    use { 'nvim-telescope/telescope-file-browser.nvim' }
-    use { 'numToStr/FTerm.nvim' } --floating terminal
-    use { 'lukas-reineke/indent-blankline.nvim' } --indent viewer
-    use { 'windwp/nvim-autopairs' } --autopairs
-    use { 'RRethy/vim-illuminate' } --highlights word under cursor
-    use { 'lewis6991/gitsigns.nvim' } --git
-    use { 'samjwill/nvim-unception' } --terminal unception
+     { 'nvim-telescope/telescope-file-browser.nvim' },
+     { 'numToStr/FTerm.nvim' }, --floating terminal
+     { 'lukas-reineke/indent-blankline.nvim' }, --indent viewer
+     { 'windwp/nvim-autopairs' }, --autopairs
+     { 'RRethy/vim-illuminate' }, --highlights word under cursor
+     { 'lewis6991/gitsigns.nvim' }, --git
+     { 'samjwill/nvim-unception' }, --terminal unception
 
-    use {'kaarmu/typst.vim', ft = {'typst'}} -- for typst
+     {'kaarmu/typst.vim', ft = {'typst'}}, -- for typst
 
-    use { 'saadparwaiz1/cmp_luasnip' }
-    use {'rafamadriz/friendly-snippets'} -- snippets
+     { 'saadparwaiz1/cmp_luasnip' },
+     {'rafamadriz/friendly-snippets'}, -- snippets
 
-    -- surrount text with custom text
-    use({
+    -- surround text with custom text
+    {
     "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-    })
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    },
 
-    -- use { 'terrortylor/nvim-comment' }
+    --  { 'terrortylor/nvim-comment' },
 
-    -- use {"numToStr/Comment.nvim"} -- Easily comment stuff
-    -- use {"JoosepAlviste/nvim-ts-context-commentstring"}
+    --  {"numToStr/Comment.nvim"}, -- Easily comment stuff
+    --  {"JoosepAlviste/nvim-ts-context-commentstring"},
 
-    -- use {
+    --  {
     --     'numToStr/Comment.nvim',
     --     config = function()
     --         require('Comment').setup()
     --     end
-    -- }
+    -- },
     -- [[ Mini ]]
-    use { 'echasnovski/mini.nvim' } --mini bundle
+     { 'echasnovski/mini.nvim' }, --mini bundle
 
-    use { 'nvim-lua/lsp_extensions.nvim' } -- extensions for rust, TypeHint
+     { 'nvim-lua/lsp_extensions.nvim' }, -- extensions for rust, TypeHint
 
     -- [[ Test ]]
-    use { 'elkowar/yuck.vim' }
+     { 'elkowar/yuck.vim' },
 
-    use { 's1n7ax/nvim-search-and-replace' } -- search and replace plugin
+     { 's1n7ax/nvim-search-and-replace' }, -- search and replace plugin
 
-    use {
+     {
         'akinsho/flutter-tools.nvim',
-        requires = {
+        dependencies = {
             'nvim-lua/plenary.nvim',
             'stevearc/dressing.nvim', -- optional for vim.ui.select
         },
-    }
+    },
 
-     use {
+      {
         "danymat/neogen",
         config = function()
             require('neogen').setup ({ snippet_engine = "luasnip" })
         end,
-        requires = "nvim-treesitter/nvim-treesitter",
+        dependencies = "nvim-treesitter/nvim-treesitter",
         -- Uncomment next line if you want to follow only stable versions
         -- tag = "*"
-    }
+    },
 
-    if packer_bootstrap then
-        require('packer').sync()
-    end
-end)
+    -- if packer_bootstrap then
+    --     require('packer').sync()
+    -- end
+})
