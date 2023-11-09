@@ -52,8 +52,8 @@ require('illuminate').configure {
 
 require("nvim-surround").setup()
 
-require('indent_blankline').setup {
-    space_char_blankline = " ",
+require('ibl').setup {
+    scope = {enabled = false}
 }
 
 require('cmp').event:on(
@@ -62,3 +62,13 @@ require('cmp').event:on(
 )
 
 require('gitsigns').setup()
+
+local ls = require('luasnip')
+ls.add_snippets('cpp',{
+    ls.snippet('cout',{
+        ls.text_node('std::cout << '),
+        ls.insert_node(0),
+        ls.text_node(' << "\n"'),
+        ls.insert_node(1),
+    })
+})  

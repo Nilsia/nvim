@@ -82,3 +82,5 @@ lsp.tsserver.setup(config({
 lsp.jsonls.setup(config())
 --
 -- lsp.comment.setup(config())
+--
+lsp.ltex.setup(config())
